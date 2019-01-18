@@ -42,9 +42,9 @@ def unique_config_sections(config_file):
 
 def _main():
     args = {
-        'config_path': os.path.join(os.getcwd(), '..', 'cfg', 'yolov3.cfg'),
-        'weights_path': os.path.join(os.getcwd(), 'yolov3.weights'),
-        'output_path': os.path.join(os.getcwd(), 'yolov3.h5'),
+        'config_path': os.path.join(os.getcwd(), '..', 'cfg', 'yolov3-tiny.cfg'),
+        'weights_path': os.path.join(os.getcwd(), '..','cfg','yolov3-tiny.weights'),
+        'output_path': os.path.join(os.getcwd(), '..','model','yolov3.h5'),
         'plot_model': True,
         'weights_only': True
     }
@@ -61,6 +61,7 @@ def _main():
         '.h5'), 'output path {} is not a .h5 file'.format(output_path)
     output_root = os.path.splitext(output_path)[0]
 
+    print('output_dir:',output_root,' and filePath:',output_path)
     # Load weights and config.
     print('Loading weights.')
     weights_file = open(weights_path, 'rb')
@@ -231,12 +232,12 @@ def _main():
     if len(out_index) == 0: out_index.append(len(all_layers) - 1)
     model = Model(inputs=input_layer, outputs=[all_layers[i] for i in out_index])
     print(model.summary())
-    # if args['weights_only']:
-    #     model.save_weights('{}'.format(output_path))
-    #     print('Saved Keras weights to {}'.format(output_path))
-    # else:
-    #     model.save('{}'.format(output_path))
-    #     print('Saved Keras model to {}'.format(output_path))
+    if args['weights_only']:
+        model.save_weights('{}'.format(output_path))
+        print('Saved Keras weights to {}'.format(output_path))
+    else:
+        model.save('{}'.format(output_path))
+        print('Saved Keras model to {}'.format(output_path))
 
     # Check to see if all weights have been read.
     remaining_weights = len(weights_file.read()) / 4

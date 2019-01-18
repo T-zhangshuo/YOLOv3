@@ -16,6 +16,7 @@ inputs = Input(shape=(None, None, 3))
 outputs, config = darknet_base(inputs, include_yolo_head=False)
 
 model = Model(inputs, outputs)
+# yolov3.h5 改为实际读取地址
 model_path = os.path.join(ROOT_DIR, 'model', 'yolov3.h5')
 
 tf.keras.models.save_model(model, model_path, overwrite=True)

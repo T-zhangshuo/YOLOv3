@@ -22,11 +22,13 @@ orig = cv2.imread('data/dog-cycle-car.png')
 USE_YOLO_HEAD = True
 
 start = time.time()
+img_data=None
 if USE_YOLO_HEAD:
-    predict_with_yolo_head(model, orig, config, confidence=0.3, iou_threshold=0.4)
+    img_data=predict_with_yolo_head(model, orig, config, confidence=0.3, iou_threshold=0.4)
 else:
-    predict(model, orig, config, confidence=0.5, iou_threshold=0.4)
+    img_data=predict(model, orig, config, confidence=0.5, iou_threshold=0.4)
 
+cv2.imwrite('data/dog-cycle-car-single.png',img_data)
 end = time.time()
 
 print("Inference time: {:.2f}s".format(end - start))

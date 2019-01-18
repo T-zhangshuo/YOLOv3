@@ -18,10 +18,8 @@ def predict(model, orig, config, confidence=0.5, iou_threshold=0.4):
 
 def predict_with_yolo_head(model, orig, config, confidence=0.5, iou_threshold=0.4):
     image, image_data = preprocess_image(orig, model_image_size=(config['width'], config['height']))
-
     predictions = yolo_head(model.predict([image_data]), num_classes=80,
                             input_dims=(config['width'], config['height']))
-
     boxes, classes, scores = handle_predictions(predictions,
                                                 confidence=confidence,
                                                 iou_threshold=iou_threshold)

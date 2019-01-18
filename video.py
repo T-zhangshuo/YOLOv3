@@ -3,6 +3,8 @@ import cv2
 from tensorflow.keras import Input, Model
 from darknet import darknet_base
 from predict import predict
+import os
+os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 
 inputs = Input(shape=(None, None, 3))
 outputs, config = darknet_base(inputs)
